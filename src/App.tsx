@@ -1,26 +1,27 @@
 import { useState } from 'react'
 import './App.css'
+import { LuCheck, LuTrash } from 'react-icons/lu'
 
-interface IErro{
-    active: boolean
-    description: string
+interface IErro {
+  active: boolean
+  description: string
 }
 
 interface ITarefa {
-    id: number
-    descricao: string
-    criadoEm: string
-    ativo: boolean
-    concluido: boolean
+  id: string
+  descricao: string
+  criadoEm: string
+  ativo: boolean
+  concluido: boolean
 }
-export function App() {
 
-    const [valorDoInput, setValorDoInput] = useState<string>("")
-    const [tarefas, setTarefas] = useState<ITarefa[]>([])
-    const [erro, setErro] = useState<IErro>({
-        active: false,
-        description: ""
-    });
+export function App() {
+  const [valorDoInput, setValorDoInput] = useState<string>("")
+  const [tarefas, setTarefas] = useState<ITarefa[]>([])
+  const [erro, setErro] = useState<IErro>({
+    active: false,
+    description: ""
+  })
 
   function adicionarTarefa(): void {
     if (valorDoInput.trim() === "") {
@@ -48,16 +49,15 @@ export function App() {
         active: true,
         description: "Tarefa já cadastrada."
       })
-
       return
     }
 
     const montarObjetoTarefa: ITarefa = {
-        id: 0,
-        descricao: valorDoInput,
-        criadoEm: new Date().toISOString(),
-        concluido: false,
-        ativo: true
+      id: Math.random().toString(36).substring(2, 9),
+      descricao: valorDoInput,
+      criadoEm: new Date().toISOString(),
+      concluido: false,
+      ativo: true
     }
 
     setTarefas(oldState => [...oldState, montarObjetoTarefa])
@@ -75,8 +75,12 @@ export function App() {
       </div>
       <ul>
         {
-          tarefas.map((tarefa, index) => (
-            <li key={index}>{tarefa.descricao}</li>
+          tarefas.map((tarefa) => (
+            <div className='item-list'>
+              <li key={tarefa.id}>{tarefa.descricao}</li>
+              <LuTrash />
+              <LuCheck />
+            </div>
           ))
         }
       </ul>
