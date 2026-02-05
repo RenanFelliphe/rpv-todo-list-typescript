@@ -64,6 +64,17 @@ export function App() {
     setValorDoInput("")
   }
 
+  function updateTask(id: string, tipo: "ATUALIZAR" | "EXCLUIR"):void {
+    if(tipo == "ATUALIZAR"){
+        
+    }
+
+    if(tipo == "EXCLUIR"){
+
+    }
+    
+  }
+
   return (
     <>
       <div className="card">
@@ -78,8 +89,8 @@ export function App() {
           tarefas.map((tarefa) => (
             <div className='item-list'>
               <li key={tarefa.id}>{tarefa.descricao}</li>
-              <LuTrash />
-              <LuCheck />
+              <button className='deleteBtn' onClick={updateTask(tarefa.id)}><LuTrash/></button>
+              <button className='checkBtn' onClick={updateTask(tarefa.id)}><LuCheck/></button>
             </div>
           ))
         }
